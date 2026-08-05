@@ -10,11 +10,34 @@
             position: fixed; left: 12px; font: 13px monospace; color: #ddd;
             background: rgba(10, 12, 18, 0.7); border-radius: 6px; user-select: none;
         }
-        #help { bottom: 12px; width: 24px; height: 24px; line-height: 24px; text-align: center; cursor: pointer }
-        #keys { bottom: 44px; padding: 8px 12px; line-height: 1.6 }
+        #help { bottom: calc(10vh + 12px); width: 24px; height: 24px; line-height: 24px; text-align: center; cursor: pointer; z-index: 2 }
+        #keys { bottom: calc(10vh + 44px); padding: 8px 12px; line-height: 1.6; z-index: 2 }
         .hidden { display: none }
+        #season {
+            position: fixed; left: 0; right: 0; bottom: 0; height: 10vh; pointer-events: none;
+            display: flex; border-top: 1px solid rgba(255,255,255,.15);
+        }
+        .seasonSection {
+            flex: 1; font: 13px monospace; color: #eee; text-shadow: 0 1px 2px #000;
+            display: flex; align-items: center; justify-content: center;
+            border-right: 1px solid rgba(255,255,255,.2);
+        }
+        #seasonMark { position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; opacity: .8 }
+        #thermo {
+            position: fixed; top: 0; bottom: 10vh; right: 0; width: 5vw; pointer-events: none;
+            background: linear-gradient(180deg, rgba(255,80,40,.3), rgba(255,255,255,.2) 80%, rgba(90,140,255,.3));
+            border-left: 1px solid rgba(255,255,255,.15);
+        }
+        #freezeTick { position: absolute; left: 0; right: 0; top: 80%; height: 1px; background: rgba(150,200,255,.8) }
+        #thermoMark { position: absolute; left: 0; right: 0; height: 2px; background: #fff; opacity: .85 }
+        #thermoLabel { position: absolute; right: 6px; font: 13px monospace; color: #eee; text-shadow: 0 1px 2px #000 }
+        .thermoScale { position: absolute; right: 6px; font: 11px monospace; color: #bbb; text-shadow: 0 1px 2px #000 }
+        #probe {
+            position: fixed; pointer-events: none; z-index: 3; font: 12px monospace; color: #e8e8e8;
+            background: rgba(10, 12, 18, 0.82); border-radius: 6px; padding: 6px 10px; line-height: 1.5;
+        }
     </style>
-  <script type="module" crossorigin src="./assets/index-BIhOApLi.js"></script>
+  <script type="module" crossorigin src="./assets/index-BUOKecwK.js"></script>
 </head>
 <body>
     <canvas id="view"></canvas>
@@ -23,9 +46,25 @@
         <div>p &mdash; pause</div>
         <div>h &mdash; heat overlay</div>
         <div>l &mdash; light overlay</div>
-        <div>w &mdash; moisture overlay</div>
+        <div>w &mdash; weather change</div>
+        <div>s &mdash; season jump</div>
+        <div>m &mdash; moisture overlay</div>
+        <div>n &mdash; nutrient overlay</div>
         <div>? &mdash; this help</div>
     </div>
     <div id="help">?</div>
+    <div id="probe" class="hidden"></div>
+    <div id="season">
+        <div class="seasonSection" style="background: rgba(140,180,255,.3)">winter</div>
+        <div class="seasonSection" style="background: rgba(120,200,140,.3)">spring</div>
+        <div class="seasonSection" style="background: rgba(255,210,90,.3)">summer</div>
+        <div class="seasonSection" style="background: rgba(200,140,70,.3)">autumn</div>
+        <div id="seasonMark"></div>
+    </div>
+    <div id="thermo">
+        <div class="thermoScale" style="top: 4px">60&deg;</div>
+        <div class="thermoScale" style="bottom: 4px">-15&deg;</div>
+        <div id="freezeTick"></div><div id="thermoMark"></div><div id="thermoLabel"></div>
+    </div>
 </body>
 </html>
